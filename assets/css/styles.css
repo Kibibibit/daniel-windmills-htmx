@@ -1,0 +1,74 @@
+:root {
+    /* Colors */
+    --appbar-color: #0E1958;
+    --background-color: #303030;
+    --text-color: #FFF
+}
+
+html {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    margin: 0;
+    
+}
+
+.appbar {
+    background-color: var(--appbar-color);
+    color: var(--text-color);
+    padding: 10px;
+}
+
+.page-content {
+    padding: 20px;
+}
+
+.title {
+    margin: 0;
+    font-weight: normal;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.sidebar-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-background-open {
+    opacity: 0.5;
+    visibility: visible !important;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 0px;
+    position: absolute;
+    visibility: hidden;
+    background-color: var(--appbar-color);
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-open {
+    width: 180px;
+    visibility: visible !important;
+    overflow: hidden;
+}

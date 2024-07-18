@@ -1,0 +1,68 @@
+package templates
+
+templ Index(pageTitle string, page templ.Component) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>daniel.thewindmills.com.au</title>
+            
+			<link rel="stylesheet" href="/assets/css/styles.css"/>
+			<script src="/assets/js/htmx.min.js"></script>
+
+            <!-- Montserrat imports -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		</head>
+		<body>
+            @SideBar(false)
+			<header class="appbar">
+                @SidebarButton("open")
+				<h2 class="title">{ pageTitle }</h2>
+			</header>
+            <div class="page-content" id="page-content">
+                @page
+            </div>
+		</body>
+	</html>
+}
+
+
+templ HomePage() {
+    <div>Welcome to daniel.thewindmills.com.au</div>
+}
+
+templ SidebarButton(value string) {
+    <button 
+        type="button" 
+        id="close-sidebar-button" 
+        hx-put="/sidebar"
+        hx-target="#sidebar-parent"
+        hx-swap="outerHTML"
+        value={value}
+        name="sidebar-button"
+
+    >{value}</button>
+}
+
+templ SideBar(open bool) {
+    <div id="sidebar-parent">
+        if (open) {
+            <div id="sidebar-background" 
+                class="sidebar-background sidebar-background-open"
+                hx-put="/sidebar"
+                hx-target="#sidebar-parent"
+                hx-swap="outerHTML"
+            >
+
+            </div>
+            <div id="sidebar" class="sidebar sidebar-open">
+                @SidebarButton("close")
+            </div>
+        } else {
+            <div id="sidebar-background" class="sidebar-background"></div>
+            <div id="sidebar" class="sidebar"> </div>
+        }
+        
+    </div>
+}
