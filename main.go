@@ -22,21 +22,18 @@ func main() {
 		templ.Handler(index).ServeHTTP(w, r)
 
 	})
-
-	mux.HandleFunc("/sidebar", func(w http.ResponseWriter, r *http.Request) {
-		r.ParseForm()
-		fmt.Println(r.Form)
-
-		var open bool = false
-
-		if r.Form.Has("sidebar-button") {
-			open = r.Form.Get("sidebar-button") == "open"
-		}
-
-		sidebar := templates.SideBar(open)
-		fmt.Println("Asked for sidebar change")
+	
+	mux.HandleFunc("/sidebar/open", func(w http.ResponseWriter, r *http.Request) {
+		sidebar := templates.Sidebar(true)
 		templ.Handler(sidebar).ServeHTTP(w, r)
 	})
+
+
+	mux.HandleFunc("/sidebar/close", func(w http.ResponseWriter, r *http.Request) {
+		sidebar := templates.Sidebar(false)
+		templ.Handler(sidebar).ServeHTTP(w, r)
+	})
+
 
 	fmt.Println("Listening on port 3000")
 

@@ -42,6 +42,10 @@ header {
     visibility: hidden;
 }
 
+.absolute {
+    position: absolute;
+}
+
 .sidebar-background {
     width: 100vw;
     height: 100vh;
@@ -49,7 +53,7 @@ header {
     position: absolute;
     visibility: hidden;
     opacity: 0;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-out;
 }
 
 .sidebar-background-open {
@@ -62,9 +66,11 @@ header {
     width: 0px;
     position: absolute;
     visibility: hidden;
+    top: 0;
+    left: 0;
     background-color: var(--appbar-color);
     overflow: hidden;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-out;
 }
 
 .sidebar-open {
