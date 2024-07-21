@@ -15,20 +15,28 @@ templ Index(pageTitle string, page templ.Component) {
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 		</head>
 		<body>
-		    <header class="appbar">
-                    @Sidebar(false)
-		   <h2 class="title">{ pageTitle }</h2>
-		   </header>
-            <div class="page-content" id="page-content">
-                @page
-            </div>
+				<header class="appbar">
+						@Sidebar(false)
+						<h2 class="title">{ pageTitle }</h2>
+				</header>
+				@PageContent(page)
 		</body>
 	</html>
+}
+
+templ PageContent(page templ.Component) {
+		<div class="page-content" id="page-content">
+				@page
+		</div>
 }
 
 
 templ HomePage() {
     <div>Welcome to daniel.thewindmills.com.au</div>
+}
+
+templ ShowcasePage() {
+		<div>This is the showcase!</div>
 }
 
 
@@ -57,10 +65,17 @@ templ Sidebar(open bool) {
 		>
 		    Close Sidebar
 		</button>
-		
+	
+		@SidebarButton("Home", "/")
+		@SidebarButton("Showcase", "/showcase")
+
 	    </div>
 	}
     </div>
 }
 
-
+templ SidebarButton(label string, location string) {
+		<a href={ templ.URL(location) }>
+				{label}				
+		</a><br/>
+}

@@ -8,6 +8,11 @@ import (
 	"github.com/a-h/templ"
 )
 
+func switchPage(w http.ResponseWriter, r *http.Request, page templ.Component) {
+		index := templates.Index("daniel.thewindmills.com.au", page)
+		templ.Handler(index).ServeHTTP(w,r)
+}
+
 func main() {
 
 	mux := http.NewServeMux()
@@ -15,12 +20,11 @@ func main() {
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		var homePage templ.Component = templates.HomePage()
-		var index templ.Component = templates.Index("daniel.thewindmills.com.au", homePage)
+		switchPage(w,r, templates.HomePage())
+	})
 
-		fmt.Println("got a request!")
-		templ.Handler(index).ServeHTTP(w, r)
-
+	mux.HandleFunc("/showcase", func(w http.ResponseWriter, r *http.Request) {
+		switchPage(w,r, templates.ShowcasePage())
 	})
 	
 	mux.HandleFunc("/sidebar/open", func(w http.ResponseWriter, r *http.Request) {
