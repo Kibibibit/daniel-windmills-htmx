@@ -1,6 +1,6 @@
 package templates
 
-templ Index(pageTitle string, page templ.Component) {
+templ Index(pageTitle string, page templ.Component, currentPage string) {
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -16,7 +16,7 @@ templ Index(pageTitle string, page templ.Component) {
 		</head>
 		<body>
 				<header class="appbar">
-						@Sidebar(false)
+						@Sidebar(false, currentPage)
 						<h2 class="title">{ pageTitle }</h2>
 				</header>
 				@PageContent(page)
@@ -40,7 +40,7 @@ templ ShowcasePage() {
 }
 
 
-templ Sidebar(open bool) {
+templ Sidebar(open bool, currentPage string) {
     <div id="sidebar-parent">
     	<button 
 	    type="button"
@@ -64,18 +64,24 @@ templ Sidebar(open bool) {
 		    hx-swap="outerHtml"
 		>
 		    Close Sidebar
-		</button>
-	
-		@SidebarButton("Home", "/")
-		@SidebarButton("Showcase", "/showcase")
+		</button><br/>
+        <br/>	
+		@SidebarButton("Home", "/", currentPage)
+		@SidebarButton("Showcase", "/showcase", currentPage)
 
 	    </div>
 	}
     </div>
 }
 
-templ SidebarButton(label string, location string) {
-		<a href={ templ.URL(location) }>
-				{label}				
-		</a><br/>
+templ SidebarButton(label string, location string, currentPage string) {
+		if (currentPage == location) {
+				<a class="sidebar-button current-sidebar-button" href={ templ.URL(location) }>
+						{label}				
+				</a>
+		} else {
+				<a class="sidebar-button" href={ templ.URL(location) }>
+						{label}				
+				</a>
+		}
 }
